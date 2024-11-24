@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Counter using HTML</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: black;
+      color: white;
+      text-align: center;
+      margin-top: 50px;
+    }
+    .error {
+      color: red;
+      display: none;
+    }
+    button {
+      margin: 10px;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .block {
+      pointer-events: none;
+      opacity: 0.5;
+    }
+  </style>
+</head>
+<body>
+  <h1>Counter using HTML</h1>
+  <p>Your Current Count is: <span id="count">0</span></p>
+  <p class="error" id="error">Error: Cannot go below 0</p>
+  <button id="decrement">Decrement</button>
+  <button id="increment">Increment</button>
+  <button id="clear">Clear</button>
+
+  <script>
+    let count = 0;
+
+    const countElement = document.getElementById("count");
+    const errorElement = document.getElementById("error");
+    const decrementButton = document.getElementById("decrement");
+    const incrementButton = document.getElementById("increment");
+    const clearButton = document.getElementById("clear");
+
+    incrementButton.addEventListener("click", () => {
+      count++;
+      updateUI();
+    });
+
+    decrementButton.addEventListener("click", () => {
+      if (count > 0) {
+        count--;
+        errorElement.style.display = "none";
+      } else {
+        errorElement.style.display = "block";
+      }
+      updateUI();
+    });
+
+    clearButton.addEventListener("click", () => {
+      count = 0;
+      errorElement.style.display = "none";
+      clearButton.style.display = "none";
+      updateUI();
+    });
+
+    function updateUI() {
+      countElement.textContent = count;
+      if (count > 1) {
+        clearButton.style.display = "inline-block";
+        clearButton.classList.add("block");
+      } else {
+        clearButton.classList.remove("block");
+      }
+    }
+
+    updateUI(); // Initial call to set the UI
+  </script>
+</body>
+</html>
